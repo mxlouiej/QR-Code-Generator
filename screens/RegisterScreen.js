@@ -73,7 +73,7 @@ const RegisterScreen = ({navigation}) => {
         <Item style={styles.formItem} last>
           <Input placeholder="Plate Number" value={plateNumber} onChangeText={(text) => setPlateNumber(text)} />
         </Item>
-        <Button style={{marginTop: 10, backgroundColor: '#191F44', borderRadius: 25}} onPress={() => {
+        <Button style={{justifyContent: 'center', marginTop: 10, backgroundColor: '#191F44', borderRadius: 25}} onPress={() => {
           handleSubmit()
         }}>
           <Text>Submit</Text>

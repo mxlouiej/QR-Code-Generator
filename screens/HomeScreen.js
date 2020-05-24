@@ -7,8 +7,7 @@ import {
   Content,
   Button,
   Text,
-  Card,
-  Icon
+  Card
  } from 'native-base';
 
 const HomeScreen = ({route, navigation}) => {
@@ -43,7 +42,6 @@ const HomeScreen = ({route, navigation}) => {
       </Card>
 
       <Button style={{borderRadius: 25, backgroundColor: '#191F44', marginTop: 25}} onPress={() => navigation.goBack()} >
-        <Icon name='arrow-back' />
         <Text>Back</Text>
       </Button>
     </Content>
