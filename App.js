@@ -7,51 +7,39 @@
  */
 
 import React from 'react';
-import {
-  SafeAreaView,
-  StyleSheet,
-  ScrollView,
-  View,
-  Text
-} from 'react-native';
+import 'react-native-gesture-handler';
+import { createStackNavigator } from '@react-navigation/stack';
+import { NavigationContainer } from '@react-navigation/native';
 
-import {
-  Colors
-} from 'react-native/Libraries/NewAppScreen';
+import { 
+  Container, 
+  Header, 
+  Body,
+  Title } from 'native-base';
+
+import RegisterScreen from './screens/RegisterScreen'
 
 const App = () => {
+  const Stack = createStackNavigator();
   return (
-    <>
-      <SafeAreaView>
-        <ScrollView
-          contentInsetAdjustmentBehavior="automatic"
-          style={styles.scrollView} >
-
-          <View style={styles.body}>
-            <Text style={styles.sectionTitle} >QR Code Generator</Text>
-          </View>
-
-        </ScrollView>
-      </SafeAreaView>
-    </>
+    <NavigationContainer>
+      <Container>
+        <Header>
+          <Body>
+            <Title>QR Code Generator</Title>
+          </Body>
+        </Header>
+        
+        <Stack.Navigator
+          screenOptions={{
+            headerShown: false
+          }}
+        >
+          <Stack.Screen name="Register" component={RegisterScreen} />
+        </Stack.Navigator>
+      </Container>
+    </NavigationContainer>
   );
 };
-
-const styles = StyleSheet.create({
-  scrollView: {
-    backgroundColor: Colors.lighter,
-  },
-  body: {
-    backgroundColor: Colors.white,
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  sectionTitle: {
-    fontSize: 24,
-    fontWeight: '600',
-    color: Colors.black,
-  }
-});
 
 export default App;
