@@ -11,6 +11,7 @@ import 'react-native-gesture-handler';
 import { createStackNavigator } from '@react-navigation/stack';
 import { NavigationContainer } from '@react-navigation/native';
 
+import {StyleSheet} from 'react-native'
 import { 
   Root,
   Container, 
@@ -28,7 +29,7 @@ const App = () => {
     <Root>
       <NavigationContainer>
         <Container>
-          <Header>
+          <Header style={styles.header}>
             <Left/>
             <Body>
               <Title>QR Code Generator</Title>
@@ -48,5 +49,11 @@ const App = () => {
     </Root>
   );
 };
+
+const styles = StyleSheet.create({
+  header: {
+    backgroundColor: '#191F44'
+  }
+})
 
 export default App;

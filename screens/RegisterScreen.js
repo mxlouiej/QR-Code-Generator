@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from "react";
+import React, {useState} from "react";
 
 import { StyleSheet } from 'react-native'
 
@@ -34,50 +34,46 @@ const RegisterScreen = ({navigation}) => {
   month[10] = "November";
   month[11] = "December";
 
-  useEffect(() => {
-    
-    // var currentMonth = month[today.getUTCMonth()];
-    // var currentYear = today.getUTCFullYear();
-    // var currentHour = today.getUTCHours()
-    // var currentMinute = today.getUTCMinutes()
-    // console.log(currentMonth, currentDay, currentYear, currentHour, currentMinute)
-    console.log('mount')
-  }, [])
-
   const handleSubmit = async () => {  
-    var date = month[today.getUTCMonth()]+ ' '+today.getDate()+ ', ' +today.getFullYear();
-    var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+    if(firstName === '' || lastName === '' || empNumber === '' || company === '' || plateNumber === '' ) {
+      alert('All fields are required')
+    } else {
+      var date = month[today.getUTCMonth()]+ ' '+today.getDate()+ ', ' +today.getFullYear();
+      var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+  
+      navigation.navigate('Home', {
+        firstName: firstName,
+        lastName: lastName,
+        empNumber: empNumber,
+        company: company,
+        plateNumber: plateNumber,
+        dateTime: date+' '+time
+      })
+    }
 
-    navigation.navigate('Home', {
-      firstName: firstName,
-      lastName: lastName,
-      empNumber: empNumber,
-      company: company,
-      plateNumber: plateNumber,
-      dateTime: date+' '+time
-    })
   }
 
  return (
-   <Container>
+   <Container style={styles.container}>
     <Content>
-      <Form style={styles.regForm}>
-        <Item>
+      <Text>Fill out the form below to generate your QR Code</Text>
+      <Form style={{marginTop: 10}}>
+        <Item style={styles.formItem}>
           <Input placeholder="First Name" value={firstName} onChangeText={(text) => setFirstName(text)} />
         </Item>
-        <Item>
+        <Item style={styles.formItem}>
           <Input placeholder="Last Name" value={lastName} onChangeText={(text) => setLastName(text)} />
         </Item>
-        <Item>
+        <Item style={styles.formItem}>
           <Input placeholder="Employee Number" value={empNumber} onChangeText={(text) => setEmpNumer(text)} />
         </Item>
-        <Item>
+        <Item style={styles.formItem}>
           <Input placeholder="Company Name" value={company} onChangeText={(text) => setCompany(text)} />
         </Item>
-        <Item last>
+        <Item style={styles.formItem} last>
           <Input placeholder="Plate Number" value={plateNumber} onChangeText={(text) => setPlateNumber(text)} />
         </Item>
-        <Button onPress={() => {
+        <Button style={{marginTop: 10, backgroundColor: '#191F44', borderRadius: 25}} onPress={() => {
           handleSubmit()
         }}>
           <Text>Submit</Text>
@@ -89,12 +85,15 @@ const RegisterScreen = ({navigation}) => {
 }
 
 const styles = StyleSheet.create({
-  regForm: {
+  container: {
     flex: 1,
-    padding: 10,
+    paddingVertical: 50,
     backgroundColor: '#fff',
     alignItems: 'center',
     justifyContent: 'center',
+  },
+  formItem: {
+    paddingTop: 10
   }
 })
 

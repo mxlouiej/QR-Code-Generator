@@ -6,10 +6,9 @@ import {
   Container, 
   Content,
   Button,
-  Form, 
-  Item, 
-  Input,
-  Text
+  Text,
+  Card,
+  Icon
  } from 'native-base';
 
 const HomeScreen = ({route, navigation}) => {
@@ -35,12 +34,16 @@ const HomeScreen = ({route, navigation}) => {
   }, [route])
 
  return (
-   <Container style={styles.body}>
+   <Container style={styles.container}>
     <Content>
-      <QRCode value={JSON.stringify(info)} size={250} />
+      <Text style={{marginBottom: 10}}>Present this QR Code to the checker upon arrival</Text>
 
-      <Text>Present this QR Code to the checker upon arrival</Text>
-      <Button onPress={() => navigation.goBack()} >
+      <Card>
+        <QRCode value={JSON.stringify(info)} size={265} />
+      </Card>
+
+      <Button style={{borderRadius: 25, backgroundColor: '#191F44', marginTop: 25}} onPress={() => navigation.goBack()} >
+        <Icon name='arrow-back' />
         <Text>Back</Text>
       </Button>
     </Content>
@@ -49,9 +52,10 @@ const HomeScreen = ({route, navigation}) => {
 }
 
 const styles = StyleSheet.create({
-  body: {
+  container: {
     flex: 1,
-    padding: 30,
+    paddingHorizontal: 45,
+    paddingVertical: 30,
     backgroundColor: 'white',
     alignItems: 'center',
     justifyContent: 'center',
