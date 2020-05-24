@@ -9,8 +9,7 @@ import {
   Form, 
   Item, 
   Input,
-  Text,
-  Toast
+  Text
  } from 'native-base';
 
 const RegisterScreen = () => {
@@ -18,10 +17,11 @@ const RegisterScreen = () => {
   const [lastName, setLastName] = useState('');
   const [empNumber, setEmpNumer] = useState('');
   const [company, setCompany] = useState('');
+  
  return (
    <Container>
     <Content>
-      <Form>
+      <Form style={styles.regForm}>
         <Item>
           <Input placeholder="First Name" value={firstName} onChangeText={(text) => setFirstName(text)} />
         </Item>
@@ -46,7 +46,13 @@ const RegisterScreen = () => {
 }
 
 const styles = StyleSheet.create({
-  
+  regForm: {
+    flex: 1,
+    padding: 10,
+    backgroundColor: '#fff',
+    alignItems: 'center',
+    justifyContent: 'center',
+  }
 })
 
 export default RegisterScreen;
