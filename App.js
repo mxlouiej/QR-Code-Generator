@@ -20,6 +20,7 @@ import {
   Title } from 'native-base';
 
 import RegisterScreen from './screens/RegisterScreen'
+import HomeScreen from './screens/HomeScreen'
 
 const App = () => {
   const Stack = createStackNavigator();
@@ -40,6 +41,7 @@ const App = () => {
             }}
           >
             <Stack.Screen name="Register" component={RegisterScreen} />
+            <Stack.Screen name="Home" component={HomeScreen} />
           </Stack.Navigator>
         </Container>
       </NavigationContainer>
