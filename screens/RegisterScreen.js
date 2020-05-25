@@ -58,6 +58,9 @@ const RegisterScreen = ({navigation}) => {
         <Item style={styles.formItem}>
           <Input autoCapitalize="words" placeholder="Company" value={company} onChangeText={(text) => setCompany(text)} />
         </Item>
+        <Text style={{color: 'grey', fontSize: 13, paddingHorizontal: 15}}>
+          Make sure that the information you have entered are correct before submitting
+        </Text>
         <Button style={styles.formButton} onPress={() => {
           handleSubmit()
         }}>
