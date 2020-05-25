@@ -1,4 +1,5 @@
-import React, {useState} from "react";
+import React, {useState, useEffect} from "react";
+import AsyncStorage from '@react-native-community/async-storage';
 
 import { StyleSheet } from 'react-native'
 
@@ -9,7 +10,8 @@ import {
   Form, 
   Item, 
   Input,
-  Text
+  Text,
+  H2
  } from 'native-base';
 
 const RegisterScreen = ({navigation}) => {
@@ -17,46 +19,29 @@ const RegisterScreen = ({navigation}) => {
   const [lastName, setLastName] = useState('');
   const [empNumber, setEmpNumer] = useState('');
   const [company, setCompany] = useState('');
-  const [plateNumber, setPlateNumber] = useState('');
-  const today = new Date()
+  let user = {
+    name: firstName + ' ' + lastName,
+    empNumber: empNumber,
+    company: company,
+   };
 
-  var month = new Array(12);
-  month[0] = "January";
-  month[1] = "February";
-  month[2] = "March";
-  month[3] = "April";
-  month[4] = "May";
-  month[5] = "June";
-  month[6] = "July";
-  month[7] = "August";
-  month[8] = "September";
-  month[9] = "October";
-  month[10] = "November";
-  month[11] = "December";
-
-  const handleSubmit = async () => {  
-    if(firstName === '' || lastName === '' || empNumber === '' || company === '' || plateNumber === '' ) {
+  const handleSubmit = async () => {
+    if(firstName === '' || lastName === '' || empNumber === '' || company === '') {
       alert('All fields are required')
     } else {
-      var date = month[today.getUTCMonth()]+ ' '+today.getDate()+ ', ' +today.getFullYear();
-      var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
-  
-      navigation.navigate('Home', {
-        firstName: firstName,
-        lastName: lastName,
-        empNumber: empNumber,
-        company: company,
-        plateNumber: plateNumber,
-        dateTime: date+' '+time
-      })
+      const arrData = user;
+      await AsyncStorage.setItem('user', JSON.stringify(arrData))
+      .then(() => {
+        navigation.navigate("Drive")
+      });
     }
-
   }
 
  return (
    <Container style={styles.container}>
     <Content>
-      <Text>Fill out the form below to generate your QR Code</Text>
+      <H2 style={{fontWeight: 'bold'}}>Welcome!</H2>
+      <Text >Type in your information to be registered</Text>
       <Form style={{marginTop: 10}}>
         <Item style={styles.formItem}>
           <Input placeholder="First Name" value={firstName} onChangeText={(text) => setFirstName(text)} />
@@ -67,16 +52,13 @@ const RegisterScreen = ({navigation}) => {
         <Item style={styles.formItem}>
           <Input placeholder="Employee Number" value={empNumber} onChangeText={(text) => setEmpNumer(text)} />
         </Item>
-        <Item style={styles.formItem}>
-          <Input placeholder="Company Name" value={company} onChangeText={(text) => setCompany(text)} />
-        </Item>
         <Item style={styles.formItem} last>
-          <Input placeholder="Plate Number" value={plateNumber} onChangeText={(text) => setPlateNumber(text)} />
+          <Input placeholder="Company" value={company} onChangeText={(text) => setCompany(text)} />
         </Item>
-        <Button style={{justifyContent: 'center', marginTop: 10, backgroundColor: '#191F44', borderRadius: 25}} onPress={() => {
+        <Button style={{justifyContent: 'center', marginTop: 20, backgroundColor: '#191F44', borderRadius: 25}} onPress={() => {
           handleSubmit()
         }}>
-          <Text>Submit</Text>
+          <Text>Register</Text>
         </Button>
       </Form>
     </Content>
@@ -87,13 +69,16 @@ const RegisterScreen = ({navigation}) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    width: '100%',
     paddingVertical: 50,
+    paddingHorizontal: 10,
     backgroundColor: '#fff',
-    alignItems: 'center',
     justifyContent: 'center',
   },
   formItem: {
-    paddingTop: 10
+    marginTop: 10,
+    paddingHorizontal: 5
+    // backgroundColor: 'white'
   }
 })
 
