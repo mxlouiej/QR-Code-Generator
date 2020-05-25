@@ -11,7 +11,8 @@ import {
   Item, 
   Input,
   Text,
-  H2
+  H2,
+  View
  } from 'native-base';
 
 const RegisterScreen = ({navigation}) => {
@@ -40,22 +41,24 @@ const RegisterScreen = ({navigation}) => {
  return (
    <Container style={styles.container}>
     <Content>
-      <H2 style={{fontWeight: 'bold'}}>Welcome!</H2>
-      <Text >Type in your information to be registered</Text>
+      <View style={{paddingHorizontal: 15}}>
+        <H2 style={{fontWeight: 'bold'}}>Welcome!</H2>
+        <Text style={styles.sectionText} >Type in your information to be registered</Text>
+      </View>
       <Form style={{marginTop: 10}}>
         <Item style={styles.formItem}>
-          <Input placeholder="First Name" value={firstName} onChangeText={(text) => setFirstName(text)} />
+          <Input autoCapitalize="words" placeholder="First Name" value={firstName} onChangeText={(text) => setFirstName(text)} />
         </Item>
         <Item style={styles.formItem}>
-          <Input placeholder="Last Name" value={lastName} onChangeText={(text) => setLastName(text)} />
+          <Input autoCapitalize="words" placeholder="Last Name" value={lastName} onChangeText={(text) => setLastName(text)} />
         </Item>
         <Item style={styles.formItem}>
           <Input placeholder="Employee Number" value={empNumber} onChangeText={(text) => setEmpNumer(text)} />
         </Item>
-        <Item style={styles.formItem} last>
-          <Input placeholder="Company" value={company} onChangeText={(text) => setCompany(text)} />
+        <Item style={styles.formItem}>
+          <Input autoCapitalize="words" placeholder="Company" value={company} onChangeText={(text) => setCompany(text)} />
         </Item>
-        <Button style={{justifyContent: 'center', marginTop: 20, backgroundColor: '#191F44', borderRadius: 25}} onPress={() => {
+        <Button style={styles.formButton} onPress={() => {
           handleSubmit()
         }}>
           <Text>Register</Text>
@@ -69,16 +72,24 @@ const RegisterScreen = ({navigation}) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    width: '100%',
-    paddingVertical: 50,
-    paddingHorizontal: 10,
+    paddingVertical: 30,
+    paddingHorizontal: 2,
     backgroundColor: '#fff',
     justifyContent: 'center',
   },
   formItem: {
-    marginTop: 10,
-    paddingHorizontal: 5
-    // backgroundColor: 'white'
+    marginTop: 20,
+    marginHorizontal: 15,
+  },
+  formButton: {
+    justifyContent: 'center', 
+    marginTop: 20, 
+    backgroundColor: '#191F44', 
+    borderRadius: 25,
+    marginHorizontal: 15
+  },
+  sectionText: {
+    color: '#353b5e'
   }
 })
 

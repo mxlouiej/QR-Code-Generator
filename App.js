@@ -82,13 +82,13 @@ const styles = StyleSheet.create({
     backgroundColor: '#191F44'
   },
   footer: {
+    backgroundColor: '#191F44',
     display: 'flex',
     flexDirection: 'column',
-    backgroundColor: 'white',
     alignItems: 'center'
   },
   footerText: {
-    color: 'grey',
+    color: 'white',
     fontSize: 11
   }
 })

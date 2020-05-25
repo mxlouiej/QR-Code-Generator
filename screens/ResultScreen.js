@@ -8,7 +8,9 @@ import {
   Content,
   Button,
   Text,
-  Card
+  Card,
+  View,
+  H2
  } from 'native-base';
 
 const ResultScreen = ({route, navigation}) => {
@@ -18,7 +20,6 @@ const ResultScreen = ({route, navigation}) => {
   const [info, setInfo] = useState({})
 
   useEffect(() => {
-    console.log('enter here')
     const getUser = async () => {
       const data = await AsyncStorage.getItem('user')
       if (data) {
@@ -28,8 +29,6 @@ const ResultScreen = ({route, navigation}) => {
           driverName: driverName,
           dateAndTime: dateTime
         })
-      } else {
-        console.log('no user')
       }
     }
 
@@ -39,7 +38,10 @@ const ResultScreen = ({route, navigation}) => {
  return (
    <Container style={styles.container}>
     <Content>
-      <Text style={{marginBottom: 10}}>Present this QR Code to the checker upon arrival</Text>
+      <View>
+        <H2 style={{fontWeight: 'bold'}}>Here you go!</H2>
+        <Text style={{marginBottom: 10}}>Present this QR Code to the checker upon arrival</Text>
+      </View>
       <Card>
         <QRCode value={JSON.stringify(info)} size={265} />
       </Card>
@@ -47,9 +49,9 @@ const ResultScreen = ({route, navigation}) => {
       <Button style={{borderRadius: 25, backgroundColor: '#191F44', marginTop: 25}} onPress={() => navigation.goBack()} >
         <Text>Back</Text>
       </Button>
-      <Button style={{borderRadius: 25, backgroundColor: '#191F44', marginTop: 25}} onPress={() => AsyncStorage.clear()} >
+      {/* <Button style={{borderRadius: 25, backgroundColor: '#191F44', marginTop: 25}} onPress={() => AsyncStorage.clear()} >
         <Text>Clear</Text>
-      </Button>
+      </Button> */}
     </Content>
    </Container>
  ) 

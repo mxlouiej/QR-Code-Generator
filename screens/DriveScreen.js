@@ -10,7 +10,8 @@ import {
   Form, 
   Item, 
   Input,
-  Text
+  Text,
+  View
  } from 'native-base';
 
  const DriveScreen = ({ navigation }) => {
@@ -34,14 +35,18 @@ import {
   month[11] = "December";
 
   const handleSubmit = () => {
-    var date = month[today.getUTCMonth()]+ ' '+today.getDate()+ ', ' +today.getFullYear();
-    var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
-
-    navigation.navigate("Result", {
-      plateNumber: plateNumber,
-      driverName: driverName,
-      dateTime: date+' '+time
-    })
+    if(driverName === '' || plateNumber === '') {
+      alert('All fields are required')
+    } else {
+      var date = month[today.getUTCMonth()]+ ' '+today.getDate()+ ', ' +today.getFullYear();
+      var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+  
+      navigation.navigate("Result", {
+        plateNumber: plateNumber,
+        driverName: driverName,
+        dateTime: date+' '+time
+      })
+    }
   }
 
   useEffect(() => {
@@ -58,15 +63,18 @@ import {
    return (
      <Container style={styles.container}>
        <Content>
-         <Text>Good day, {data.name}!</Text>
+        <View style={{paddingHorizontal: 15}}>
+          <Text style={{fontWeight: 'bold', fontSize: 20}}>Good day, {data.name}!</Text>
+          <Text style={styles.sectionText} >Type in the information needed to generate your QR Code</Text>
+        </View>
         <Form style={{marginTop: 10}}>
           <Item style={styles.formItem}>
-            <Input placeholder="Driver Name" value={plateNumber} onChangeText={(text) => setPlateNumber(text)} />
+            <Input autoCapitalize="words" placeholder="Driver Name" value={plateNumber} onChangeText={(text) => setPlateNumber(text)} />
           </Item>
           <Item style={styles.formItem}>
-            <Input placeholder="Plate Number" value={driverName} onChangeText={(text) => setDriveName(text)} />
+            <Input autoCapitalize="characters" placeholder="Plate Number" value={driverName} onChangeText={(text) => setDriveName(text)} />
           </Item>
-          <Button style={{justifyContent: 'center', marginTop: 20, backgroundColor: '#191F44', borderRadius: 25}} onPress={() => {
+          <Button style={styles.formButton} onPress={() => {
             handleSubmit()
           }}>
             <Text>Submit</Text>
@@ -79,16 +87,24 @@ import {
 
  const styles = StyleSheet.create({
    container: {
-    // flex: 1,
-    // paddingHorizontal: 45,
-    // paddingVertical: 30,
+     display:'flex',
+    flex: 1,
+    paddingVertical: 30,
+    paddingHorizontal: 2,
     backgroundColor: 'white',
-    // alignItems: 'center',
-    // justifyContent: 'center',
+    justifyContent: 'center',
    },
    formItem: {
-    paddingTop: 10
-   }
+    marginTop: 20,
+    marginHorizontal: 15,
+   },
+   formButton: {
+     justifyContent: 'center', 
+     marginTop: 20, 
+     backgroundColor: '#191F44', 
+     borderRadius: 25,
+     marginHorizontal: 15
+   },
  })
 
  export default DriveScreen;
